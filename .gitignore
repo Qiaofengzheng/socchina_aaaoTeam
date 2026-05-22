@@ -28,3 +28,13 @@ Thumbs.db
 
 # Video (large files)
 *.mp4
+
+# Secrets and credentials
+*.key
+*.pem
+*.pfx
+*.cert
+*.crt
+*.secret
+credentials*
+secrets*
