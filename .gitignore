@@ -1,0 +1,30 @@
+# Build artifacts
+*.o
+*.d
+*.elf
+*.hex
+*.lst
+*.map
+*.bin
+*.a
+
+# IDE files
+.idea/
+*.iml
+.settings/
+.cproject
+.project
+.template
+
+# Object directories
+obj/
+
+# Temp / build output
+mrs/obj/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Video (large files)
+*.mp4

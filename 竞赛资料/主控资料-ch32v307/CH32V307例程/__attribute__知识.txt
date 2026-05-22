@@ -1,0 +1,30 @@
+__attribute__((noinline))  /* 设置函数为非内联函数 */
+__attribute__((always_inline)) /* 设置函数内联 */
+__attribute__((weak)) /* 用来声明weak function */
+__attribute__((aligned(4))) /* 设置字节对齐 */
+__attribute__((packed)) /* 取消编译器对结构体的字节对齐优化功能 */
+__attribute__((constructor)) /* 该选项修饰的函数会在main函数之前被自动执行 */
+__attribute__(destructor) /* 该选项修饰的函数会在main函数之后或者exit()被调用后自动执行 */
+__attribute__((optimize("O0"))) /* 设置编译器优化级别 */
+__attribute__((section(".highcode"))) /* 在RAM中运行 */
+__attribute__((interrupt("WCH-Interrupt-fast")))  /* WCH快速中断 */
+
+/* 下面两个选项用来告诉编译器对带有可变参数的函数进行检查，检查格式化字符串和参数之间是否匹配。
+    其中m表示格式化字符串在函数参数列表中的位置，n表示第一个格式化输入参数在函数参数列表中的位置
+    eg. int ispurs_snprintf(char *str, size_t size, const char *format, ...)  __attribute__ ((format (printf, 3, 4)));
+    其中m表示format的位置，所以是3，n表示以一个待匹配的参数位置，所以是4
+*/
+__attribute__((format(printf, m , n)))
+__attribute__((format(scanf, m, n)))
+
+attribute((used))是GCC编译器的一个指令，用来告诉编译器一个变量或函数可能会被用到，避免编译器在优化代码时将其删去。
+-般情况下，编译器会删去未被使用过的变量或函数，以减少代码大小和提高程序效率。
+使用该指令的时候，需要注意以下两点:
+1.该指令只对未被使用过的变量或函数有效。如果变量或函数已经被使用过，该指令就没有任何作用。
+2.该指令只对编译器有效，对链接器没有影响。这意味着即使使用了该指令，未被使用的变量或函数仍然会被链接器移除。
+在实践中，attribute(used))往往和其它指令(如_atribute_(weak))一起使用。例如，在编写一个驱动程序时，有一些变量和函数是由其他模块调用的。
+如果这些变量或函数在本模块中声明但未被使用，编译器很可能会将它们优化掉，导致在链接时找不到符号错误。这时候就可以使用_attribute_(used))
+和_attribute_(weak)指令来告诉编译器，这些变量和函数可能会被其他模块调用。这样在链接时链接器就不会将这些变量和函数移除了。
+总之，attribute(used)指令可以避免在优化代码时被误删的问题，但是需要正确使用，并且在实践中需要根据具体情况选择合适的指令组合来保证编译和链接正确。
+
+__attribute__((section(".noinit"))) MRS将变量指定RAM区域Noinit不初始化
